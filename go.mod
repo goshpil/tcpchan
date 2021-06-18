@@ -1,8 +1,8 @@
-module github.com/gowrapdata/tcpchan
+module github.com/goshpil/tcpchan
 
-go 1.14
+go 1.15
 
 require (
-	github.com/sirupsen/logrus v1.5.0
-	github.com/stretchr/testify v1.2.2
+	github.com/stretchr/testify v1.7.0
+	go.uber.org/zap v1.17.0
 )

@@ -1,19 +1,14 @@
 package tcpchan
 
 import (
-	"github.com/sirupsen/logrus"
 	"github.com/stretchr/testify/require"
 	"testing"
-	"time"
 )
 
 func TestStableTCP(t *testing.T) {
-	logrus.SetLevel(logrus.DebugLevel)
 	runServer(t)
 	c := NewConnection(ServerAddress)
-	go c.Start()
-	time.Sleep(time.Second)
-
+	c.Start()
 	hello := <-c.Data
 	require.Equal(t, "HELLO", hello)
 
@@ -34,4 +29,6 @@ func TestStableTCP(t *testing.T) {
 	}
 
 	c.Close()
+	require.Equal(t, c.isFinished, true)
+	require.Error(t, c.Send([]byte("AFTERCLOSE\n")))
 }
